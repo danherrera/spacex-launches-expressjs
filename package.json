@@ -5,6 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "devSetup": "psql -f setup_db.sql && echo 'DATABASE_HOST=127.0.0.1\nDATABASE_PORT=5432\nDATABASE_USER=\nDATABASE_PASSWORD=\nDATABASE_NAME=spacex_launches' > .env",
     "devStart": "nodemon --experimental-json-modules --exec babel-node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
