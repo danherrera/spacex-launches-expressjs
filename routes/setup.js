@@ -3,10 +3,15 @@ const router = express.Router()
 import launch_model from './models/launch.js'
 import data from '../seed-data.json'
 
-router.get('/', async (req, res) => {
-    try {
-        console.log('Setting up database')
+async function isDatabaseEmpty() {
+    const launches = await launch_model.getAll()
+    return launches.length === 0
+}
+
+async function runSetup() {
+        console.log('Clearing database...')
         await launch_model.deleteAll()
+        console.log('Populating database...')
         data.forEach(async (item, _) => {
             await launch_model.insertWithId({
                 id: item.flight_number,
@@ -18,6 +23,12 @@ router.get('/', async (req, res) => {
                 reddit_launch_link: item.links.reddit_launch
             })
         })
+        console.log('Populated database!')
+}
+
+router.get('/', async (req, res) => {
+    try {
+        runSetup()
         res.status(200).json({
             message: 'Successfully completed setup'
         })
@@ -28,4 +39,5 @@ router.get('/', async (req, res) => {
     }
 })
 
-export default router
+export default router 
+export { runSetup, isDatabaseEmpty }
