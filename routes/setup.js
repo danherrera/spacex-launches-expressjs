@@ -9,21 +9,21 @@ async function isDatabaseEmpty() {
 }
 
 async function runSetup() {
-        console.log('Clearing database...')
-        await launch_model.deleteAll()
-        console.log('Populating database...')
-        data.forEach(async (item, _) => {
-            await launch_model.insertWithId({
-                id: item.flight_number,
-                rocket_name: item.rocket.rocket_name,
-                rocket_type: item.rocket.rocket_type,
-                launch_date: new Date(item.launch_date_utc),
-                details: item.details,
-                article_link: item.links.article_link,
-                reddit_launch_link: item.links.reddit_launch
-            })
+    console.log('Clearing database...')
+    await launch_model.deleteAll()
+    console.log('Populating database...')
+    for (const item of data) {
+        await launch_model.insertWithId({
+            id: item.flight_number,
+            rocket_name: item.rocket.rocket_name,
+            rocket_type: item.rocket.rocket_type,
+            launch_date: new Date(item.launch_date_utc),
+            details: item.details,
+            article_link: item.links.article_link,
+            reddit_launch_link: item.links.reddit_launch
         })
-        console.log('Populated database!')
+    }
+    console.log('Populated database!')
 }
 
 router.get('/', async (req, res) => {
@@ -39,5 +39,8 @@ router.get('/', async (req, res) => {
     }
 })
 
-export default router 
-export { runSetup, isDatabaseEmpty }
+export default router
+export {
+    runSetup,
+    isDatabaseEmpty
+}
