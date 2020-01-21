@@ -1,8 +1,8 @@
-const dbUtil = require('../../dbTransactionUtil')
+import dbUtil from '../../dbTransactionUtil.js'
 
 const table = 'launch'
 
-module.exports = {
+export default {
     get: async (id) => {
         return await dbUtil.runTransaction(async (client) => {
             const query = `SELECT * FROM ${table} WHERE id = ${id};`

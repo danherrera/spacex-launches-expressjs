@@ -1,6 +1,6 @@
-const express = require('express')
+import express from 'express'
 const router = express.Router()
-const launch_model = require('./models/launch')
+import launch_model from './models/launch.js'
 
 // get all launches
 router.get('/', async (req, res) => {
@@ -145,4 +145,4 @@ async function getLaunch(req, res, next) {
     next()
 }
 
-module.exports = router
+export default router

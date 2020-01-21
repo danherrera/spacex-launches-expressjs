@@ -1,12 +1,12 @@
-const express = require('express')
+import express from 'express'
 const router = express.Router()
-const launch_model = require('./models/launch')
+import launch_model from './models/launch.js'
+import data from '../seed-data.json'
 
 router.get('/', async (req, res) => {
     try {
         console.log('Setting up database')
         await launch_model.deleteAll()
-        const data = require('../seed-data.json')
         data.forEach(async (item, _) => {
             await launch_model.insertWithId({
                 id: item.flight_number,
@@ -18,7 +18,9 @@ router.get('/', async (req, res) => {
                 reddit_launch_link: item.links.reddit_launch
             })
         })
-        res.status(200).json({message: 'Successfully completed setup'})
+        res.status(200).json({
+            message: 'Successfully completed setup'
+        })
     } catch (err) {
         res.status(500).json({
             message: err.message
@@ -26,4 +28,4 @@ router.get('/', async (req, res) => {
     }
 })
 
-module.exports = router
+export default router

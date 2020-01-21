@@ -1,4 +1,4 @@
-const createClient = require('./databaseClient')
+import createClient from './databaseClient.js'
 
 const util = {
     runTransaction: async (func) => {
@@ -22,4 +22,4 @@ async function transaction(func) {
     }
 }
 
-module.exports = util
+export default util

@@ -1,7 +1,10 @@
-require('dotenv').config()
+import dotenv from 'dotenv';
+dotenv.config()
 
-const client = require('./databaseClient')()
-const express = require('express')
+import createDatabaseClient from './databaseClient.js';
+const client = createDatabaseClient()
+
+import express from 'express'
 const app = express()
 
 client.connect()
@@ -11,10 +14,10 @@ client.connect()
 
 app.use(express.json())
 
-const setupRouter = require('./routes/setup')
+import setupRouter from './routes/setup.js'
 app.use('/setup', setupRouter)
 
-const launchesRouter = require('./routes/launches')
+import launchesRouter from './routes/launches.js'
 app.use('/launches', launchesRouter)
 
 app.listen(3001, () => {
