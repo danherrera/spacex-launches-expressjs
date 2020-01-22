@@ -32,6 +32,8 @@ isDatabaseEmpty()
 import launchesRouter from './routes/launches.js'
 app.use('/launches', launchesRouter)
 
-app.listen(3001, () => {
-    console.log('Server started')
+const port = 3001
+
+app.listen(port, () => {
+    console.log(`Server started on http://localhost:${port}/`)
 })
