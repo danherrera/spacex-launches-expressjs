@@ -4,6 +4,7 @@ dotenv.config()
 import createDatabaseClient from './databaseClient.js';
 const client = createDatabaseClient()
 
+import cors from 'cors'
 import express from 'express'
 const app = express()
 
@@ -13,11 +14,13 @@ client.connect()
     .finally(() => client.end())
 
 app.use(express.json())
+app.use(cors())
 
 import setupRouter, {
     isDatabaseEmpty,
     runSetup
 } from './routes/setup.js'
+
 app.use('/setup', setupRouter)
 isDatabaseEmpty()
     .then(isEmpty => {
