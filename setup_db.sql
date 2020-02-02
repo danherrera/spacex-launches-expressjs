@@ -9,5 +9,7 @@ CREATE TABLE launch (
     launch_date TIMESTAMP NOT NULL,
     details TEXT NOT NULL,
     article_link TEXT NOT NULL,
-    reddit_launch_link TEXT NOT NULL
+    reddit_launch_link TEXT NOT NULL,
+    any_parts_reused BOOLEAN NOT NULL,
+    launch_success BOOLEAN NOT NULL
 );

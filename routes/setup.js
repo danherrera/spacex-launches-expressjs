@@ -20,7 +20,9 @@ async function runSetup() {
             launch_date: new Date(item.launch_date_utc),
             details: item.details,
             article_link: item.links.article_link,
-            reddit_launch_link: item.links.reddit_launch
+            reddit_launch_link: item.links.reddit_launch,
+            any_parts_reused: item.reuse.core || item.reuse.side_core1 || item.reuse.side_core2 || item.reuse.fairings || item.reuse.capsule,
+            launch_success: item.launch_success
         })
     }
     console.log('Populated database!')

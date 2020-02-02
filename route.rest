@@ -19,7 +19,9 @@ Content-Type: application/json
     "launch_date": "2017-01-01T00:00:00.000Z",
     "details": "A successful launch of sorts",
     "article_link": "https://www.google.com",
-    "reddit_launch_link": "https://www.google.com"
+    "reddit_launch_link": "https://www.google.com",
+    "any_parts_reused": false,
+    "launch_success": false
 }
 
 ###

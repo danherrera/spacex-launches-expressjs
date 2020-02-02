@@ -40,7 +40,9 @@ router.post('/', async (req, res) => {
                 launch_date: new Date(req.body.launch_date),
                 details: req.body.details,
                 article_link: req.body.article_link,
-                reddit_launch_link: req.body.reddit_launch_link
+                reddit_launch_link: req.body.reddit_launch_link,
+                any_parts_reused: req.body.any_parts_reused,
+                launch_success: req.body.launch_success
             })
         } else {
             launch_id = await launch_model.insert({
@@ -49,7 +51,9 @@ router.post('/', async (req, res) => {
                 launch_date: new Date(req.body.launch_date),
                 details: req.body.details,
                 article_link: req.body.article_link,
-                reddit_launch_link: req.body.reddit_launch_link
+                reddit_launch_link: req.body.reddit_launch_link,
+                any_parts_reused: req.body.any_parts_reused,
+                launch_success: req.body.launch_success
             })
         }
         res.status(201).json({
@@ -87,6 +91,14 @@ router.patch('/:id', getLaunch, async (req, res) => {
 
         if (req.body.reddit_launch_link != null) {
             res.launch.reddit_launch_link = req.body.reddit_launch_link
+        }
+
+        if (req.body.any_parts_reused != null) {
+            res.launch.any_parts_reused = req.body.any_parts_reused
+        }
+
+        if (req.body.launch_success != null) {
+            res.launch.launch_success = req.body.launch_success
         }
 
         const result = await launch_model.update(res.launch)
