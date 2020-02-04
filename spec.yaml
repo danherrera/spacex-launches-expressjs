@@ -1,0 +1,121 @@
+openapi: 3.0.1
+info:
+  title: SpaceX Launches API
+  description: 'An API that allows users to obtain information on SpaceX Launches.'
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: Danilo Herrera
+  version: 1.0.0
+paths: 
+  /launches:
+    get:
+      description: Get list of SpaceX launches.
+      responses:
+        200:
+          description: Successfully obtained list of SpaceX launches.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Launch'
+    post:
+      description: Add new SpaceX launch.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Launch'
+      responses:
+        201:
+          description: Successfully created SpaceX launch.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: Launch ID of created launch.
+                    
+  
+  /launches/{id}:
+    get:
+      description: Get information about a specific launch.
+      parameters: 
+        - name: id
+          description: The identification of the launch.
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 17
+      responses:
+        200:
+          description: Successfully obtains launch information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Launch'
+  
+  /setup:
+    get:
+      description: Resets database to original state.
+      responses:
+        200:
+          description: Successfully set up database.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Message indicating successful database setup.
+                    example: Successfully completed setup
+                      
+components:
+  schemas:
+    Launch:
+      description: Model containing launch information.
+      properties:
+        id:
+          description: The identifier for the launch.
+          type: integer
+          example: 4
+        rocket_name:
+          description: The name of the rocket for this particular launch.
+          type: string
+          example: Falcon 1
+        rocket_type:
+          description: The type of rocket used for this launch.
+          type: string
+          example: Merlin A
+        launch_date:
+          description: The date of the launch in ISO8601 format.
+          type: string
+          example: '2007-03-21T05:10:00.000Z'
+        details:
+          description: Any details pertaining to the launch.
+          type: string
+          example: Successful first stage burn and transition to second stage, maximum altitude 289 km, Premature engine shutdown at T+7 min 30 s, Failed to reach orbit, Failed to recover first stage
+        article_link:
+          description: Link to the article about this launch.
+          type: string
+          example: https://www.space.com/3590-spacex-falcon-1-rocket-fails-reach-orbit.html
+        reddit_launch_link:
+          description: If available, link to the reddit post about this launch; empty string otherwise.
+          type: string
+          example: https://www.reddit.com/r/space/comments/19gm5f/live_coverage_spacex_crs2_launch_to_the_iss/c8nvah4
+        any_parts_reused:
+          description: True if any parts of the rocket were reused.
+          type: boolean
+          example: false
+        launch_success:
+          description: True if launch was a success (i.e. landed).
+          type: boolean
+          example: false
+
