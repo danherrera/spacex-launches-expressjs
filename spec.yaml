@@ -61,7 +61,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Launch'
   
-  /setup:
+  /reset:
     get:
       description: Resets database to original state.
       responses:

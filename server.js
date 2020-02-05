@@ -20,7 +20,7 @@ client.connect()
 app.use(express.json())
 app.use(cors())
 
-app.use('/setup', setupRouter)
+app.use('/reset', setupRouter)
 isDatabaseEmpty()
   .then(isEmpty => {
     if (isEmpty) {
